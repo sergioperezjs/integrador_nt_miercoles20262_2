@@ -20,7 +20,7 @@ random.seed(42)
 
 #4. definir el numero de datos simular (DATASET)
 filas=250
-ROLES=["Admin","Empresario","Profesor","Estudiante","Coord","Vigilante"]
+
 CATEGORIAS=[ "Tecnología",
   "Educación",
   "Salud",
