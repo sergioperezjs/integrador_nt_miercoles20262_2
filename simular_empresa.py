@@ -1,5 +1,6 @@
 import random 
 import uuid
+import pandas as pd
 from faker import Faker as fk
 
 
@@ -24,3 +25,23 @@ random.seed(42)
 #Definir el numero de datos simulados (DATASET)
 
 FILAS = 300
+SECTORES = ["Tecnología", "Salud", "Educación", "Finanzas", "Manufactura", "Comercio", "Transporte", "Turismo", "Agricultura", "Energía"]
+
+def generar_datos_empresa(numero_datos):
+    filas = []
+    numero_datos = FILAS
+    for _ in range(numero_datos):
+        filas.append({
+            "id": str(uuid.uuid4()),
+            "nombre": fake.company(),
+            "nit": fake.unique.numerify(text="#########-#"),
+            "sector": random.choice(SECTORES),
+            "contacto": fake.name(),
+            "correo": fake.unique.email(),
+            "telefono": fake.phone_number(),
+            "activa": random.choice([True, False])
+        })
+        return filas
+
+#Utilizaremos PANDAS para ordenar los datos simulados en un DATAFRAME
+
