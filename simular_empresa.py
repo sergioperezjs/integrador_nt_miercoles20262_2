@@ -27,7 +27,7 @@ random.seed(42)
 FILAS = 300
 SECTORES = ["Tecnología", "Salud", "Educación", "Finanzas", "Manufactura", "Comercio", "Transporte", "Turismo", "Agricultura", "Energía"]
 
-def generar_datos_empresa(numero_datos):
+def generar_datos_empresa():
     filas = []
     numero_datos = FILAS
     for _ in range(numero_datos):
@@ -44,4 +44,7 @@ def generar_datos_empresa(numero_datos):
         return filas
 
 #Utilizaremos PANDAS para ordenar los datos simulados en un DATAFRAME
+
+tabla_ordenada_empresas = pd,DataFrame(generar_datos_empresa())
+
 
