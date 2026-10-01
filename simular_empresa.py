@@ -45,6 +45,8 @@ def generar_datos_empresa():
 
 #Utilizaremos PANDAS para ordenar los datos simulados en un DATAFRAME
 
-tabla_ordenada_empresas = pd,DataFrame(generar_datos_empresa())
+tabla_ordenada_empresas = pd.DataFrame(generar_datos_empresa())
 
-
+#Ensuciar los datos
+#Generar una funcion que nos muestre los datos
+def generar_muestras():
