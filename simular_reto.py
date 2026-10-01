@@ -1,6 +1,6 @@
 import random
 import uuid
-
+import pandas as pd
 from faker import Faker
 
 #1. Escoger el pais y lenguaje para simular los datos
@@ -46,3 +46,30 @@ def generar_datos_retos(numero_registros=FILAS):
             "id_prioridad":random.choice(IDS_PRIORIDAD)
         })
     return filas
+
+#6. Utilizaremos Pandas para ordenar los datos simulados en un Dataframe
+tabla_ordenada_reto=pd.DataFrame(generar_datos_retos())
+
+#7.1. Generar una funcion que muestre los datos
+def generar_muestra(datos,porcentaje):
+    return datos.sample(fraccion=porcentaje,random_state=random.randint(0,9999)).index
+
+#7.2 Funcion que ensucia los datos
+def ensuciar(datos_df):
+    datos_df=datos_df.copy()
+
+    # Se ensucia `nombre`: 10% con espacios sobrantes.
+    subconjunto_datos=generar_muestra(datos_df,0.1)
+    datos_df.loc[subconjunto_datos,"nombre"]=" " + datos_df.loc[subconjunto_datos,"nombre"] + " "
+
+    # Se ensucia `descripcion`: 12% en None (nulos).
+    subconjunto_datos=generar_muestra(datos_df,0.12)
+    datos_df.loc[subconjunto_datos,"descripcion"]=None
+
+    # Se ensucia `fecha_inicio`: dos formatos mezclados: "2026-03-02" y "02/03/2026".
+    iso = datos_df["fecha_inicio"].dt.strftime("%2026-%03-%02")               
+    latino = datos_df["fecha_inicio"].dt.strftime("%02/%03/%2026")              
+    datos_df["fecha_inicio"] = iso                                               
+    subconjunto_datos = generar_muestra(datos_df, 0.30)
+    datos_df.loc[subconjunto_datos, "fecha_inicio"] = latino.loc[subconjunto_datos]
+
